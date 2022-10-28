@@ -87,3 +87,47 @@ SELECT full_name
   JOIN animals on owners.id = animals.owner_id 
   GROUP BY full_name 
   ORDER BY COUNT (owner_id) desc limit 1;
+
+SELECT animals.name 
+  FROM animals INNER 
+  JOIN visits ON animals.id=visits.animal_id
+  WHERE vet_id = '1' 
+  ORDER BY visits.date DESC limit 1;
+  
+SELECT animals.name 
+  FROM animals 
+  JOIN visits ON animals.id = visits.animal_id 
+  WHERE visits.vet_id = 3 
+  AND visits.date BETWEEN '2020-04-01' AND '2020-08-30';
+
+SELECT animals.name 
+  FROM animals 
+  JOIN visits ON animals.id = visits.animal_id 
+  GROUP BY animals.name 
+  ORDER BY COUNT(visits.animal_id) DESC limit 1;
+
+SELECT animals.name 
+FROM animals 
+JOIN visits ON animals.id = visits.animal_id 
+WHERE visits.vet_id = 2 
+ORDER BY visits.date limit 1;
+
+SELECT a.*, v.date, vets.* 
+  FROM animals a 
+  JOIN visits v ON a.id = v.animal_id 
+  JOIN vets ON vets.id = v.vet_id 
+  WHERE v.vet_id = 2 
+  ORDER BY v.date limit 1;
+
+SELECT COUNT(v.animal_id) 
+  FROM visits v 
+  JOIN specializations s ON s.vet_id = v.vet_id 
+  JOIN animals a ON v.animal_id = a.id 
+  WHERE s.species_id = a.species_id;
+
+SELECT s.species_id 
+  FROM specializations s 
+  JOIN animals a ON a.species_id = s.species_id 
+  JOIN visits v ON a.id = v.animal_id 
+  WHERE v.vet_id = 2 
+  ORDER BY a.species_id DESC LIMIT 1;
