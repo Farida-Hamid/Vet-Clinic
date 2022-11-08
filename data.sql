@@ -35,6 +35,8 @@ INSERT INTO animals (name, date_of_birth, weight_kg, neutered, escape_attempts)
 INSERT INTO animals (name, date_of_birth, weight_kg, neutered, escape_attempts)
   VALUES ('Ditto', '2022-05-14', 22.0, True, 4);
   
+INSERT INTO visits (animal_id, vet_id, date) SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
+
 INSERT INTO owners (full_name, age)
   VALUES ('Sam Smith', 34),
          ('Jennifer Orwell', 19),
